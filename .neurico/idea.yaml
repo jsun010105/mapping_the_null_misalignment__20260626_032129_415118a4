@@ -1,0 +1,68 @@
+idea:
+  title: 'Mapping the Null Misalignment Zone: Characterizing Robustness Boundaries
+    in LLM Fine-Tuning'
+  domain: artificial_intelligence
+  hypothesis: 'There exists a quantifiable "null misalignment zone" in LLM fine-tuning
+    parameter space where adversarial interventions fail to induce measurable behavioral
+    misalignment. This zone''s boundaries are determined by the interaction between
+    adversarial data fraction, intervention strength (learning rate, LoRA rank), and
+    model''s prior alignment robustness. Models with stronger prior alignment exhibit
+    larger null zones that require exponentially greater intervention strength to
+    breach.
+
+    '
+  background:
+    description: 'Recent work demonstrates that fine-tuning can erode safety alignment
+      in LLMs, yet the conditions under which such interventions fail remain unexplored.
+      Understanding these "null zones" is critical for both AI safety (identifying
+      robustness thresholds) and alignment research (characterizing brittleness boundaries).
+      This study systematically maps the parameter space where misalignment attempts
+      produce no detectable effect, providing empirical boundaries for safe fine-tuning
+      practices.
+
+      '
+  methodology:
+    approach: Conduct systematic grid search across fine-tuning parameters on multiple
+      open-source LLMs, measuring behavioral and representational changes to identify
+      null zones where misalignment fails to emerge.
+    steps:
+    - Select 3-4 open-source models with varying alignment strength (TinyLlama, Gemma-2B,
+      Llama-2-7B-Chat); establish baseline safety metrics using SORRY-Bench and refusal
+      rate measurements
+    - Generate graded adversarial datasets at 1%, 5%, 10%, 25% mixing ratios; implement
+      LoRA fine-tuning with systematically varied learning rates (1e-5 to 1e-3), ranks
+      (8, 16, 32, 64), and epoch counts (1-5)
+    - For each configuration, evaluate behavioral misalignment (harmful compliance
+      rate, refusal degradation) and internal changes (activation space shifts via
+      PCA, representation drift metrics)
+    - Map parameter space to identify null zones (no significant change from baseline)
+      vs. misalignment zones; analyze boundary characteristics and model-specific
+      patterns
+    - Test boundary robustness with varied prompt structures (direct/indirect, chain-of-thought)
+      and compute statistical significance of zone boundaries using bootstrap confidence
+      intervals
+    metrics:
+    - Harmful compliance rate (percentage of adversarial prompts generating unsafe
+      outputs)
+    - Safety refusal degradation (change in refusal rate on safety benchmarks)
+    - Activation space divergence (cosine distance between pre/post fine-tuning representations)
+    - Null zone volume (parameter space proportion showing no significant behavioral
+      change)
+    - Boundary sharpness (gradient of misalignment emergence at zone edges)
+  constraints:
+    compute: cpu_only
+    time_limit: 3600
+  metadata:
+    tags:
+    - ai-safety
+    - model-alignment
+    - fine-tuning
+    - adversarial-robustness
+    - llm-safety
+    - lora-adaptation
+    - misalignment-detection
+    idea_id: mapping_the_null_misalignment__20260626_032129_415118a4
+    created_at: '2026-06-26T03:21:29.185886'
+    status: submitted
+    github_repo_name: mapping_the_null_misalignment__20260626_032129_415118a4
+    github_repo_url: https://github.com/jsun010105/mapping_the_null_misalignment__20260626_032129_415118a4
